@@ -10,7 +10,7 @@
   <video id="video" controls width="720"></video>
 
   <br>
-  <label for="quality">Video Quality:</label>
+  <label for="quality">video quality:</label>
   <select id="quality">
     <option value="-1">Auto</option>
   </select>
@@ -19,7 +19,7 @@
   <script>
     const video = document.getElementById('video');
     const qualitySelector = document.getElementById('quality');
-    const videoSrc = 'https://ginerr.github.io/CN_hw_3/master.m3u8'; // Replace this with your actual path
+    const videoSrc = 'https://ginerr.github.io/CN_hw_3/master.m3u8';
 
     if (Hls.isSupported()) {
       const hls = new Hls();
