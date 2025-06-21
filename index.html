@@ -5,18 +5,42 @@
   <title>CN_HW_3</title>
 </head>
 <body>
-  <h1>CN_Homework3</h1>
+  <h1>Computer Networks Homework 3</h1>
+
   <video id="video" controls width="720"></video>
+
+  <br>
+  <label for="quality">Video Quality:</label>
+  <select id="quality">
+    <option value="-1">Auto</option>
+  </select>
 
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
     const video = document.getElementById('video');
-    const videoSrc = 'https://ginerxx.github.io/CN_hw_3/master.m3u8';
+    const qualitySelector = document.getElementById('quality');
+    const videoSrc = 'https://ginerr.github.io/CN_hw_3/master.m3u8'; // Replace this with your actual path
 
     if (Hls.isSupported()) {
       const hls = new Hls();
       hls.loadSource(videoSrc);
       hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        const levels = hls.levels;
+
+        levels.forEach((level, i) => {
+          const option = document.createElement('option');
+          option.value = i;
+          option.text = `${level.height}p`;
+          qualitySelector.appendChild(option);
+        });
+
+        qualitySelector.addEventListener('change', () => {
+          const selected = parseInt(qualitySelector.value);
+          hls.currentLevel = selected;
+        });
+      });
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = videoSrc;
     } else {
